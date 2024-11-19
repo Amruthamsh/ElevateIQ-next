@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const Form = () => {
+  const router = useRouter();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -18,7 +20,10 @@ const Form = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          if (data.message === "success") {
+            alert("User registered successfully");
+            router.push("/api/auth/signin");
+          }
         });
     } else {
       alert("Please fill all the fields");
@@ -32,19 +37,34 @@ const Form = () => {
           <label htmlFor="" className="text-white">
             Full Name:
           </label>
-          <input type="text" name="fullname" />
+          <input
+            type="text"
+            name="fullname"
+            pattern="[A-Za-z]{3,}"
+            title="Username must contain atleast three characters"
+          />
         </div>
         <div>
           <label htmlFor="" className="text-white">
             Username:
           </label>
-          <input type="text" name="username" />
+          <input
+            type="text"
+            name="username"
+            pattern=".{3,}"
+            title="Username must contain atleast three characters"
+          />
         </div>
         <div>
           <label htmlFor="" className="text-white">
             Password:
           </label>
-          <input type="password" name="password" />
+          <input
+            type="password"
+            name="password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+          />
         </div>
         <div>
           <label htmlFor="" className="text-white">

@@ -1,6 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import User from "../../../../models/user";
+import connectMongoDB from "../../../../libs/mongodb";
 
 export const options = {
   providers: [
@@ -11,13 +12,21 @@ export const options = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = await User.findOne({ username: credentials.username });
-        if (
-          user.username === credentials.username &&
-          user.password === credentials.password
-        ) {
-          return user;
-        } else {
+        try {
+          await connectMongoDB();
+          console.log(credentials);
+          const user = await User.findOne({ username: credentials.username });
+
+          if (
+            user.username === credentials.username &&
+            user.password === credentials.password
+          ) {
+            return user;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log("MongoDB connection failed", error);
           return null;
         }
       },
