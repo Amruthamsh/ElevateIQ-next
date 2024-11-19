@@ -1,18 +1,19 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useState } from 'react';
-import Spline from '@splinetool/react-spline';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ElementType, ReactElement } from 'react';
-import { FiMoreVertical } from 'react-icons/fi'; 
+import React from "react";
+import { useState } from "react";
+import Spline from "@splinetool/react-spline";
+import Image from "next/image";
+import Link from "next/link";
+import { ElementType, ReactElement } from "react";
+import { FiMoreVertical } from "react-icons/fi";
+import SignOut from "./components/ui/signout";
+import SignIn from "./components/ui/signin";
 
 export const page = () => {
   return (
-
     <main className="bg-gray-900 min-h-screen">
-                  <Navbar />
+      <Navbar />
       <div className="flex flex-col lg:flex-row">
         {/* First Section */}
         <section className="text-gray-400 bg-gray-900 flex-1 py-12">
@@ -27,18 +28,18 @@ export const page = () => {
                 FOR STUDENT
               </h1>
               <p className="leading-relaxed mb-6 text-sm md:text-base lg:text-lg">
-              JOIN DEVELOPER , PRACTICE CODING SKILLS , GET UP SKILLED AND PREPARE FOR INTERVIEWS
+                JOIN DEVELOPER , PRACTICE CODING SKILLS , GET UP SKILLED AND
+                PREPARE FOR INTERVIEWS
               </p>
               <div className="flex justify-center mb-4">
-                <Link href="./STUDENT/Signin">
-                  <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-4 md:px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm md:text-lg">
-                    LOGIN
-                  </button>
-                </Link>
+                <SignIn
+                  url="/skillhive/STUDENT/profile"
+                  className="inline-flex text-white bg-indigo-500 border-0 py-2 px-4 md:px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm md:text-lg"
+                />
               </div>
               <h6 className="text-sm">DONT HAVE AN ACCOUNT?</h6>
               <div className="flex justify-center mt-4">
-                <Link href="./STUDENT/Signupp">
+                <Link href="/signup">
                   <button className="text-indigo-500 underline text-sm md:text-base">
                     Sign Up
                   </button>
@@ -57,21 +58,20 @@ export const page = () => {
             />
             <div className="text-center w-full max-w-lg">
               <h1 className="title-font text-2xl md:text-3xl lg:text-4xl mb-4 font-medium text-white">
-              FOR COLLEGE
+                FOR COLLEGE
               </h1>
               <p className="leading-relaxed mb-6 text-sm md:text-base lg:text-lg">
-              EXHIBIT YOUR PROJECTS AND ACHIEVEMENTS
+                EXHIBIT YOUR PROJECTS AND ACHIEVEMENTS
               </p>
               <div className="flex justify-center mb-4">
-                <Link href="./STUDENT/Signin">
-                  <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-4 md:px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm md:text-lg">
-                    LOGIN
-                  </button>
-                </Link>
+                <SignIn
+                  url="/skillhive/COLLEGE/profile"
+                  className="inline-flex text-white bg-indigo-500 border-0 py-2 px-4 md:px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm md:text-lg"
+                />
               </div>
               <h6 className="text-sm">DONT HAVE AN ACCOUNT?</h6>
               <div className="flex justify-center mt-4">
-                <Link href="./STUDENT/Signupp">
+                <Link href="/signup">
                   <button className="text-indigo-500 underline text-sm md:text-base">
                     Sign Up
                   </button>
@@ -80,8 +80,8 @@ export const page = () => {
             </div>
           </div>
         </section>
-        
-          <section className="text-gray-400 bg-gray-900 flex-1 py-12">
+
+        <section className="text-gray-400 bg-gray-900 flex-1 py-12">
           <div className="container mx-auto flex px-5 items-center justify-center flex-col">
             <img
               className="lg:w-1/2 md:w-3/4 w-4/5 mb-8 object-cover rounded"
@@ -93,18 +93,18 @@ export const page = () => {
                 FOR COMPANY
               </h1>
               <p className="leading-relaxed mb-6 text-sm md:text-base lg:text-lg">
-              WE ARE THE MARKET-LEADING PALTFORM TO IDENTFY AND HIRE DEVOLOPERS WITH THE RIGHT SKILLS
+                WE ARE THE MARKET-LEADING PALTFORM TO IDENTFY AND HIRE
+                DEVOLOPERS WITH THE RIGHT SKILLS
               </p>
               <div className="flex justify-center mb-4">
-                <Link href="./COMPANY/Signin">
-                  <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-4 md:px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm md:text-lg">
-                    LOGIN
-                  </button>
-                </Link>
+                <SignIn
+                  url="/skillhive/COMPANY/profile"
+                  className="inline-flex text-white bg-indigo-500 border-0 py-2 px-4 md:px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm md:text-lg"
+                />
               </div>
               <h6 className="text-sm">DONT HAVE AN ACCOUNT?</h6>
               <div className="flex justify-center mt-4">
-                <Link href="./COMPANY/Signupp">
+                <Link href="/signup">
                   <button className="text-indigo-500 underline text-sm md:text-base">
                     Sign Up
                   </button>
@@ -113,10 +113,8 @@ export const page = () => {
             </div>
           </div>
         </section>
-        
       </div>
       <Footer />
-
     </main>
   );
 };
@@ -124,101 +122,173 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-      setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-      <div className="w-full h-16 sm:h-20 backdrop-filter backdrop-blur-xl bg-opacity-20 border-b flex items-center justify-center">
-          <div className="max-w-7xl w-full flex items-center justify-between p-4">
-              {/* Logo and Brand Name */}
-              <div className="flex items-center">
-                  {/* <Image src="/Image/logo.png" alt="Logo Alt Text" width={50} height={50} className="rounded-full" /> */}
-                  <h6 className="font-bold ml-2 text-sm sm:text-lg">ElevateIQ</h6>
-              </div>
+    <div className="w-full h-16 sm:h-20 backdrop-filter backdrop-blur-xl bg-opacity-20 border-b flex items-center justify-center">
+      <div className="max-w-7xl w-full flex items-center justify-between p-4">
+        {/* Logo and Brand Name */}
+        <div className="flex items-center">
+          {/* <Image src="/Image/logo.png" alt="Logo Alt Text" width={50} height={50} className="rounded-full" /> */}
+          <h6 className="font-bold ml-2 text-sm sm:text-lg">ElevateIQ</h6>
+        </div>
 
-              {/* Menu for larger screens */}
-              <ul className="hidden sm:flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-base">
-                  <li><Link className="text-fuchsia-500 hover:text-fuchsia-500 transition-colors" href="/Home">HOME</Link></li>
-                  <li><Link className="hover:text-fuchsia-500 transition-colors" href="/Gameit">GAMEIT</Link></li>
-                  <li><Link className="hover:text-fuchsia-500 transition-colors" href="/skillhive">SKILLHIVE</Link></li>
-                  <li><Link className="hover:text-fuchsia-500 transition-colors" href="/ByteBriefs">BYTEBRIEFS</Link></li>
-                  <li><Link className="hover:text-fuchsia-500 transition-colors" href="/Whappning">WHAPPNING</Link></li>
-                  <li><Link className="hover:text-fuchsia-500 transition-colors" href="/Jobbit">JOBBIT</Link></li>
-                  <li><Link className="hover:text-fuchsia-500 transition-colors" href="/Careercompus">CAREERCOMPUS</Link></li>
-              </ul>
+        {/* Menu for larger screens */}
+        <ul className="hidden sm:flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-base">
+          <li>
+            <Link
+              className="text-fuchsia-500 hover:text-fuchsia-500 transition-colors"
+              href="/Home"
+            >
+              HOME
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="hover:text-fuchsia-500 transition-colors"
+              href="/Gameit"
+            >
+              GAMEIT
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="hover:text-fuchsia-500 transition-colors"
+              href="/skillhive"
+            >
+              SKILLHIVE
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="hover:text-fuchsia-500 transition-colors"
+              href="/ByteBriefs"
+            >
+              BYTEBRIEFS
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="hover:text-fuchsia-500 transition-colors"
+              href="/Whappning"
+            >
+              WHAPPNING
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="hover:text-fuchsia-500 transition-colors"
+              href="/Jobbit"
+            >
+              JOBBIT
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="hover:text-fuchsia-500 transition-colors"
+              href="/Careercompus"
+            >
+              CAREERCOMPUS
+            </Link>
+          </li>
+        </ul>
 
-              {/* Hamburger icon for mobile view */}
-              <div className="sm:hidden">
-                  <FiMoreVertical 
-                      className="text-2xl cursor-pointer"
-                      onClick={toggleMenu}
-                  />
-              </div>
+        {/* Hamburger icon for mobile view */}
+        <div className="sm:hidden">
+          <FiMoreVertical
+            className="text-2xl cursor-pointer"
+            onClick={toggleMenu}
+          />
+        </div>
 
-              {/* Mobile menu */}
-              {isMenuOpen && (
-                  <ul className="absolute top-16 right-4 bg-blue-950 rounded-lg shadow-lg p-4 flex flex-col gap-2 text-xs sm:text-base">
-                      <li>
-                          <Link href="/Home">
-                              <button className="w-full text-fuchsia-500 hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">HOME</button>
-                          </Link>
-                      </li>
-                      <li>
-                          <Link href="/Gameit">
-                              <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">GAMEIT</button>
-                          </Link>
-                      </li>
-                      <li>
-                          <Link href="/Skillhive">
-                              <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">SKILLHIVE</button>
-                          </Link>
-                      </li>
-                      <li>
-                          <Link href="/ByteBriefs">
-                              <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">BYTEBRIEFS</button>
-                          </Link>
-                      </li>
-                      <li>
-                          <Link href="/Whappning">
-                              <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">WHAPPNING</button>
-                          </Link>
-                      </li>
-                      <li>
-                          <Link href="/Jobbit">
-                              <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">JOBBIT</button>
-                          </Link>
-                      </li>
-                      <li>
-                          <Link href="/Careercompus">
-                              <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">CAREERCOMPUS</button>
-                          </Link>
-                      </li>
-                  </ul>
-              )}
-          </div>
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <ul className="absolute top-16 right-4 bg-blue-950 rounded-lg shadow-lg p-4 flex flex-col gap-2 text-xs sm:text-base">
+            <li>
+              <Link href="/Home">
+                <button className="w-full text-fuchsia-500 hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">
+                  HOME
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/Gameit">
+                <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">
+                  GAMEIT
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/Skillhive">
+                <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">
+                  SKILLHIVE
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/ByteBriefs">
+                <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">
+                  BYTEBRIEFS
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/Whappning">
+                <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">
+                  WHAPPNING
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/Jobbit">
+                <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">
+                  JOBBIT
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/Careercompus">
+                <button className="w-full hover:bg-fuchsia-700 hover:text-white rounded p-2 transition-colors">
+                  CAREERCOMPUS
+                </button>
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
+    </div>
   );
 }
 
 function Footer() {
   return (
-      <footer className="bg-black text-white py-4 text-center">
-          <div className="max-w-7xl w-full flex flex-col sm:flex-row items-center justify-center sm:justify-between p-4">
-              <div className="flex items-center mb-2 sm:mb-0">
-                  {/* <Image src="/Image/logo.png" alt="Logo Alt Text" width={50} height={50} className="rounded-full" /> */}
-                  <span className="ml-3 text-lg">ElevateIQ</span>
-              </div>
-              <p className="text-xs sm:text-sm text-gray-400 sm:ml-4 text-center">
-                  © {new Date().getFullYear()} ElevateIQ — 
-                  <a href="https://twitter.com/knyttneve" className="text-gray-500 ml-1" target="_blank" rel="noopener noreferrer">@TEAM BOTS</a>
-              </p>
-              <Link href="/aboutus" className="flex items-center text-gray-400 hover:text-white">
-                  <span className="text-xs sm:text-sm">About Us</span>
-              </Link>
-          </div>
-      </footer>
+    <footer className="bg-black text-white py-4 text-center">
+      <div className="max-w-7xl w-full flex flex-col sm:flex-row items-center justify-center sm:justify-between p-4">
+        <div className="flex items-center mb-2 sm:mb-0">
+          {/* <Image src="/Image/logo.png" alt="Logo Alt Text" width={50} height={50} className="rounded-full" /> */}
+          <span className="ml-3 text-lg">ElevateIQ</span>
+        </div>
+        <p className="text-xs sm:text-sm text-gray-400 sm:ml-4 text-center">
+          © {new Date().getFullYear()} ElevateIQ —
+          <a
+            href="https://twitter.com/knyttneve"
+            className="text-gray-500 ml-1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @TEAM BOTS
+          </a>
+        </p>
+        <Link
+          href="/aboutus"
+          className="flex items-center text-gray-400 hover:text-white"
+        >
+          <span className="text-xs sm:text-sm">About Us</span>
+        </Link>
+      </div>
+    </footer>
   );
 }
-
 
 export default page;
