@@ -1,5 +1,6 @@
 "use client";
 
+import { revalidatePath } from "next/cache";
 import React, { useState } from "react";
 
 const CreatePost = ({ userId }: { userId: string }) => {

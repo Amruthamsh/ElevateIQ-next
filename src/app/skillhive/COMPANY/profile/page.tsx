@@ -5,14 +5,26 @@ import Post from "@/models/post";
 
 const page = async () => {
   await connectMongoDB();
-  const posts = await Post.find({}).lean();
+  const posts = await Post.find({})
+    .populate("createdBy", "username fullname") // Populate creator details
+    .select("_id title content createdAt createdBy"); // Select required fields
+
   console.log(posts);
 
   return (
     <div>
       <h1>COMPANY PROFILE</h1>
       <SignOut />
-      <div></div>
+      <div>
+        {posts.map((post) => (
+          <div key={post._id}>
+            <h3>{post.title}</h3>
+            <p>{post.content}</p>
+            <p>Author: {post.createdBy.fullname}</p>
+            <p>Created at: {post.createdAt.toString()}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

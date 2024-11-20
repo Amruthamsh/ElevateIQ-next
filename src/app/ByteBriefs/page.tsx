@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
 
 interface Article {
   urlToImage: string;
@@ -40,11 +41,12 @@ const NewsPage: React.FC = () => {
     fetchNews();
   }, [apiKey]);
 
-  const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString();
+  const formatDate = (dateString: string) =>
+    new Date(dateString).toLocaleDateString();
 
   return (
     <div>
-
+      <Navbar />
       <div className="relative bg-gray w-full h-auto overflow-hidden text-left text-base text-lavenderblush-300 font-poppins">
         <div className="py-5 text-center text-3xl md:text-5xl">
           <h1>LATEST NEWS & UPDATES</h1>
@@ -53,7 +55,10 @@ const NewsPage: React.FC = () => {
         {error && <p className="text-red-500 text-center">{error}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
           {latestNews.map((news, index) => (
-            <div key={index} className="relative bg-[#6A7B8C] text-black rounded-lg shadow-lg overflow-hidden">
+            <div
+              key={index}
+              className="relative bg-[#6A7B8C] text-black rounded-lg shadow-lg overflow-hidden"
+            >
               <img
                 className="w-full h-48 object-cover"
                 src={news.urlToImage}
@@ -61,8 +66,12 @@ const NewsPage: React.FC = () => {
               />
               <div className="p-4">
                 <h2 className="text-lg font-bold">{news.title}</h2>
-                <p className="text-sm text-gray-400">By: {news.author || "Unknown"}</p>
-                <p className="text-sm text-gray-400">Published: {formatDate(news.publishedAt)}</p>
+                <p className="text-sm text-gray-400">
+                  By: {news.author || "Unknown"}
+                </p>
+                <p className="text-sm text-gray-400">
+                  Published: {formatDate(news.publishedAt)}
+                </p>
                 <p className="mt-2">{news.description}</p>
                 <a
                   href={news.url}

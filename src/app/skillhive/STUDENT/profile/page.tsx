@@ -154,58 +154,60 @@ const ProfilePage = async () => {
                 </Button>
               </div>
             </div>
-
-            <div className="bg-gray-800 rounded-lg shadow-md p-4">
-              <div className="flex items-center mb-4">
-                <Avatar className="w-10 h-10 mr-3">
-                  <AvatarImage src="/placeholder-user.jpg" />
-                  <AvatarFallback>EO</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-semibold">Elmer O'Reilly</p>
-                  <p className="text-sm text-gray-400">September 24, 2024</p>
+            {posts.map((post) => (
+              <div
+                key={String(post._id)}
+                className="bg-gray-800 rounded-lg shadow-md p-4"
+              >
+                <div className="flex items-center mb-4">
+                  <Avatar className="w-10 h-10 mr-3">
+                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarFallback>{post.createdBy[0]}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-semibold">{post.title}</p>
+                    <p className="text-sm text-gray-400">
+                      {new Date(post.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <p>{post.content}</p>
+                </div>
+                <div className="flex items-center justify-between text-sm text-gray-400 border-t border-gray-700 pt-3">
+                  <div className="flex items-center">
+                    <span className="bg-blue-500 text-white rounded-full p-1 mr-1">
+                      <ThumbsUp className="h-3 w-3" />
+                    </span>
+                    <span>{post?.likes?.length} likes</span>
+                  </div>
+                  <span>{post?.comments?.length} comments</span>
+                </div>
+                <div className="flex justify-between mt-4">
+                  <Button
+                    variant="ghost"
+                    className="flex-1 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    <ThumbsUp className="mr-2 h-4 w-4" />
+                    Like
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="flex-1 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    <MessageSquare className="mr-2 h-4 w-4" />
+                    Comment
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="flex-1 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    <Share2 className="mr-2 h-4 w-4" />
+                    Share
+                  </Button>
                 </div>
               </div>
-              <div className="mb-4">
-                <img
-                  src="/placeholder.svg?height=400&width=600"
-                  alt="MacBook keyboard close-up"
-                  className="w-full h-auto rounded-lg"
-                />
-              </div>
-              <div className="flex items-center justify-between text-sm text-gray-400 border-t border-gray-700 pt-3">
-                <div className="flex items-center">
-                  <span className="bg-blue-500 text-white rounded-full p-1 mr-1">
-                    <ThumbsUp className="h-3 w-3" />
-                  </span>
-                  <span>Frida Doyle and 4 others</span>
-                </div>
-                <span>2 comments</span>
-              </div>
-              <div className="flex justify-between mt-4">
-                <Button
-                  variant="ghost"
-                  className="flex-1 text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  <ThumbsUp className="mr-2 h-4 w-4" />
-                  Like
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="flex-1 text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Comment
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="flex-1 text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  <Share2 className="mr-2 h-4 w-4" />
-                  Share
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
