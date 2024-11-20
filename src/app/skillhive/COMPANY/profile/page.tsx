@@ -12,12 +12,12 @@ const page = async () => {
   console.log(posts);
 
   return (
-    <div>
+    <div className="bg-white">
       <h1>COMPANY PROFILE</h1>
       <SignOut />
       <div>
         {posts.map((post) => (
-          <div key={post._id}>
+          <div key={post._id} className="py-4">
             <h3>{post.title}</h3>
             <p>{post.content}</p>
             <p>Author: {post.createdBy.fullname}</p>

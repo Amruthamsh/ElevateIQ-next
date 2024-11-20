@@ -24,7 +24,7 @@ export default async function page() {
         urlLink = "/skillhive/COMPANY/profile";
         break;
       default:
-        urlLink = "/skillhive/college/profile";
+        urlLink = "/skillhive/COLLEGE/profile";
         break;
     }
   }
@@ -70,7 +70,7 @@ export default async function page() {
                 </div>
                 <h6 className="text-sm">DONT HAVE AN ACCOUNT?</h6>
                 <div className="flex justify-center mt-4">
-                  <Link href="/signup">
+                  <Link href="/signup/?role=student">
                     <button className="text-indigo-500 underline text-sm md:text-base">
                       Sign Up
                     </button>
@@ -102,7 +102,7 @@ export default async function page() {
                 </div>
                 <h6 className="text-sm">DONT HAVE AN ACCOUNT?</h6>
                 <div className="flex justify-center mt-4">
-                  <Link href="/signup">
+                  <Link href="/signup/?role=college">
                     <button className="text-indigo-500 underline text-sm md:text-base">
                       Sign Up
                     </button>
@@ -135,7 +135,7 @@ export default async function page() {
                 </div>
                 <h6 className="text-sm">DONT HAVE AN ACCOUNT?</h6>
                 <div className="flex justify-center mt-4">
-                  <Link href="/signup">
+                  <Link href="/signup/?role=company">
                     <button className="text-indigo-500 underline text-sm md:text-base">
                       Sign Up
                     </button>

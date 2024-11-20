@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-const Form = () => {
+const Form = ({ role }: { role: string }) => {
   const router = useRouter();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,10 +81,16 @@ const Form = () => {
           <label htmlFor="" className="text-white">
             Role:
           </label>
-          <select name="role" id="">
-            <option value="student">Student</option>
-            <option value="company">Company</option>
-            <option value="college">College</option>
+          <select name="role" id="" defaultValue={role}>
+            <option value="student" selected={role === "student"}>
+              Student
+            </option>
+            <option value="company" selected={role === "company"}>
+              Company
+            </option>
+            <option value="college" selected={role === "college"}>
+              College
+            </option>
           </select>
         </div>
       </div>
