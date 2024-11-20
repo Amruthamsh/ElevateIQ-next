@@ -18,12 +18,23 @@ const Form = () => {
         },
         body: JSON.stringify(data),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.error || "Something went wrong");
+            });
+          }
+          return res.json();
+        })
         .then((data) => {
           if (data.message === "success") {
             alert("User registered successfully");
-            router.push("/api/auth/signin");
+            router.replace("/api/auth/signin");
           }
+        })
+        .catch((error) => {
+          console.error("Error:", error.message);
+          alert("An error occurred: " + error.message);
         });
     } else {
       alert("Please fill all the fields");
@@ -40,7 +51,7 @@ const Form = () => {
           <input
             type="text"
             name="fullname"
-            pattern="[A-Za-z]{3,}"
+            pattern="[A-Za-z ]{3,}"
             title="Username must contain atleast three characters"
           />
         </div>
@@ -72,7 +83,7 @@ const Form = () => {
           </label>
           <select name="role" id="">
             <option value="student">Student</option>
-            <option value="teacher">Company</option>
+            <option value="company">Company</option>
             <option value="college">College</option>
           </select>
         </div>

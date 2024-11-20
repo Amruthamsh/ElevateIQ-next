@@ -1,15 +1,36 @@
 import User from "@/models/user";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
+import connectMongoDB from "../../../../libs/mongodb";
 
 export async function POST(req: Request) {
   try {
     const { fullname, username, password, role } = await req.json();
-    const user = User.create({ fullname, username, password, role });
-    console.log("Registering user:", { fullname, username, role });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.error();
+
+    if (!fullname || !username || !password || !role) {
+      return NextResponse.json(
+        { error: "All fields are required" },
+        { status: 400 }
+      );
+    }
+    await connectMongoDB();
+    const user = await User.create({ fullname, username, password, role });
+
+    console.log("User registered successfully:", { fullname, username, role });
+    return NextResponse.json({ message: "success" });
+  } catch (error: any) {
+    if (error.code === 11000) {
+      return NextResponse.json(
+        { error: "Username already exists. Please choose another." },
+        { status: 400 }
+      );
+    }
+    console.error("Error during user registration:", error);
+
+    return NextResponse.json(
+      {
+        error,
+      },
+      { status: 500 }
+    );
   }
-  return NextResponse.json({ message: "success" });
 }

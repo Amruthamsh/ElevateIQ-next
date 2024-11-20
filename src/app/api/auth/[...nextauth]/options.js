@@ -14,7 +14,7 @@ export const options = {
       async authorize(credentials) {
         try {
           await connectMongoDB();
-          console.log(credentials);
+          console.log(credentials.username);
           const user = await User.findOne({ username: credentials.username });
 
           if (
