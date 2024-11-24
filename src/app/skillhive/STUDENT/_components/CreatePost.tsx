@@ -3,7 +3,13 @@
 import { revalidatePath } from "next/cache";
 import React, { useState } from "react";
 
-const CreatePost = ({ userId }: { userId: string }) => {
+const CreatePost = ({
+  userId,
+  authorRole,
+}: {
+  userId: string;
+  authorRole: string;
+}) => {
   const [showPostForm, setShowPostForm] = useState(false);
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -13,6 +19,7 @@ const CreatePost = ({ userId }: { userId: string }) => {
     const data = Object.fromEntries(formData.entries());
     console.log("Form data:", data);
     data.createdBy = userId;
+    data.authorRole = authorRole;
     const response = await fetch("/api/posts", {
       method: "POST",
       headers: {

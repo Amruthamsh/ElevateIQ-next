@@ -18,6 +18,11 @@ const postSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  authorRole: {
+    type: String,
+    enum: ["college", "student"],
+    required: true,
+  },
 });
 
 const Post = mongoose.models.Post || mongoose.model("Post", postSchema);

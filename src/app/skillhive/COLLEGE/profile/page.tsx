@@ -2,8 +2,13 @@ import React from "react";
 import SignOut from "../../components/ui/signout";
 import connectMongoDB from "@/libs/mongodb";
 import Post from "@/models/post";
+import CreatePost from "../../STUDENT/_components/CreatePost";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
 const page = async () => {
+  const session = await getServerSession(options);
+  const userId = session.user.id;
   await connectMongoDB();
   const posts = await Post.find({})
     .populate("createdBy", "username fullname") // Populate creator details
@@ -15,6 +20,7 @@ const page = async () => {
     <div className="bg-white">
       <h1>COLLEGE PROFILE</h1>
       <SignOut />
+      <CreatePost userId={userId} authorRole="college" />
       <div>
         {posts.map((post) => (
           <div key={post._id} className="py-4">

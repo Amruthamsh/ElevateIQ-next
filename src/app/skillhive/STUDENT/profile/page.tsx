@@ -34,7 +34,11 @@ const ProfilePage = async () => {
   await dbConnect();
   const session = await getServerSession(options);
   const userId = session.user.id;
-  const posts = await Post.find({ createdBy: userId }).lean();
+  //const posts = await Post.find({ createdBy: userId }).lean();
+  const posts = await Post.find({})
+    .populate("createdBy", "username fullname") // Populate creator details
+    .select("_id title content createdAt createdBy"); // Select required fields
+
   console.log(posts);
 
   return (
@@ -129,7 +133,7 @@ const ProfilePage = async () => {
         <div className="flex-1 overflow-y-auto p-4">
           <div className="max-w-2xl mx-auto space-y-4">
             <div className="bg-gray-800 rounded-lg shadow-md p-4">
-              <CreatePost userId={userId} />
+              <CreatePost userId={userId} authorRole="student" />
               <div className="flex justify-between mt-4">
                 <Button
                   variant="ghost"
