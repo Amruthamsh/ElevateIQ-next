@@ -11,6 +11,21 @@ const CreatePost = ({
   authorRole: string;
 }) => {
   const [showPostForm, setShowPostForm] = useState(false);
+  const [image, setImage] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +35,9 @@ const CreatePost = ({
     console.log("Form data:", data);
     data.createdBy = userId;
     data.authorRole = authorRole;
+    if (imageUrl) {
+      data.imageUrl = imageUrl;
+    }
     const response = await fetch("/api/posts", {
       method: "POST",
       headers: {
@@ -95,9 +113,32 @@ const CreatePost = ({
                 </label>
                 <input
                   type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleImageChange}
                   className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
                 />
               </div>
+              {imageUrl && (
+                <div className="flex items-center space-x-4">
+                  <img
+                    src={imageUrl}
+                    alt="Preview"
+                    className="w-24 h-24 object-cover rounded-md"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setImage(null);
+                      setImageUrl(null);
+                    }}
+                    className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md shadow-sm hover:bg-red-700"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
 
               <div className="flex justify-end space-x-4">
                 <button

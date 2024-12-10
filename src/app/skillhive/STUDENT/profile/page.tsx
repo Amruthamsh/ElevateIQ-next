@@ -37,7 +37,7 @@ const ProfilePage = async () => {
   //const posts = await Post.find({ createdBy: userId }).lean();
   const posts = await Post.find({})
     .populate("createdBy", "username fullname") // Populate creator details
-    .select("_id title content createdAt createdBy"); // Select required fields
+    .select("_id title content createdAt createdBy imagePath"); // Select required fields
 
   console.log(posts);
 

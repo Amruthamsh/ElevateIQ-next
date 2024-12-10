@@ -23,6 +23,10 @@ const postSchema = new Schema({
     enum: ["college", "student"],
     required: true,
   },
+  imagePath: {
+    type: String,
+    required: false,
+  },
 });
 
 const Post = mongoose.models.Post || mongoose.model("Post", postSchema);
